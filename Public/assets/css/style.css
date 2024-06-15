@@ -231,7 +231,7 @@ img {
 /* PORTIFOLIO */
 
 .portfolio-item .iconbox {
-    background-color: var(--c-brand);
+    background-color: var(--c-brand-red);
     color: white;
     position: absolute;
     top: 40%;
@@ -272,7 +272,7 @@ img {
 
 /* TEAM */
 .team-member-content {
-    background-color: var(--c-brand);
+    background-color: var(--c-dark);
     position: absolute;
     bottom: -24px;
     left: 50%;
@@ -356,7 +356,7 @@ footer ul {
 footer .line {
     width: 40px;
     height: 4px;
-    background-color: var(--c-brand);
+    background-color: var(--c-brand-red);
     margin-top: 12px;
     margin-bottom: 24px;
 }
