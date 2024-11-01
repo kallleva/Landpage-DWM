@@ -12,7 +12,7 @@ const eventRouter = require('./event');
 router.use('/auth', authRoutes);
 
 // Defino a rota user para coisas envolvidas ao usuário
-router.use('/user', userRoutes);
+//router.use('/user', userRoutes);
 
 router.use('/event', eventRouter);
 
