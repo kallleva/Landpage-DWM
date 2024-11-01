@@ -4,11 +4,10 @@ const { Pool } = require('pg');
 
 // Configurações da conexão com o banco de dados
 const pool = new Pool({
-  user: 'postgres',           // Substitua pelo seu usuário do banco de dados
-  host: 'localhost',          // Host do banco de dados
-  database: 'postgres',       // Nome do banco de dados
-  password: 'laura2018',      // Senha do banco de dados
-  port: 5432,                 // Porta padrão do PostgreSQL
+  connectionString: 'postgresql://postgres:pXSIapcXTToUegwhSPrGhPylakajbbJr@autorack.proxy.rlwy.net:31232/railway',
+  ssl: {
+    rejectUnauthorized: false, // Apenas se o servidor exigir SSL. Remova se não for necessário.
+  }
 });
 
 // Função genérica para realizar queries no banco de dados
