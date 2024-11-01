@@ -2,7 +2,7 @@
 
 const userRepository = require('../repository/userRepository');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 exports.login = async (username, password) => {
   if (!username || !password) {
