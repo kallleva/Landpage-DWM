@@ -17,10 +17,8 @@ app.use('/api', apiRoutes);
 
 // Rota para servir o frontend (SPA - Single Page Application)
 app.get('/', (req, res) => {
-  // Usando o caminho absoluto para o arquivo index.html
-  const indexPath = path.join(__dirname, 'public', 'index.html');
-  console.log("Caminho do index.html:", indexPath); // Confirmar o caminho absoluto no console
-  res.sendFile(indexPath);
+  // Fornecendo o diretório raiz explicitamente
+  res.sendFile('index.html', { root: path.join(__dirname, 'public') });
 });
 
 // Iniciar o servidor
