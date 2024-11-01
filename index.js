@@ -15,22 +15,12 @@ app.use(express.json());
 const apiRoutes = require('./backend/routers/api');
 app.use('/api', apiRoutes);
 
-//Rota para servir o frontend (SPA - Single Page Application)
+// Rota para servir o frontend (SPA - Single Page Application)
 app.get('/', (req, res) => {
-  // Usando caminho fixo
-  const indexPath = path.join('public', 'index.html'); // Caminho fixo relativo
-  console.log('Tentando enviar arquivo:', indexPath); // Log para verificar o caminho
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      console.error('Erro ao enviar o arquivo:', err); // Log do erro
-      res.status(err.status).end();
-    }
-  });
+  res.sendFile(path.join('public', 'index.html'));
 });
 
-
-
-
+// Iniciar o servidor
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
