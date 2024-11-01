@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware para servir arquivos estáticos do frontend
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join('public')));
 
 // Middleware para parsear JSON
 app.use(express.json());
