@@ -18,7 +18,7 @@ app.use('/api', apiRoutes);
 //Rota para servir o frontend (SPA - Single Page Application)
 app.get('/', (req, res) => {
   // Usando caminho fixo
-  const indexPath = path.join(__dirname, 'index.html'); // Caminho fixo relativo
+  const indexPath = path.join('public', 'index.html'); // Caminho fixo relativo
   console.log('Tentando enviar arquivo:', indexPath); // Log para verificar o caminho
   res.sendFile(indexPath, (err) => {
     if (err) {
