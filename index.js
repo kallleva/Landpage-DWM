@@ -31,7 +31,7 @@ app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
   // Definindo um caminho fixo para o arquivo index.html
-  const indexPath = 'public\index.html'; // Altere este caminho para o absoluto
+  const indexPath = 'public/index.html'; // Altere este caminho para o absoluto
   console.log('Tentando enviar arquivo:', indexPath); // Log para verificar o caminho
   res.sendFile(indexPath, (err) => {
     if (err) {
