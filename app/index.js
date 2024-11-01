@@ -39,7 +39,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 // Rota padrão que serve o 'index.html'
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile('\app\app\public\index.html');
 });
 // Inicia o servidor
 app.listen(PORT, () => {
