@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Cadastros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stkeListCadastro.css"> <!-- Link para o CSS -->
+</head>
+
+<body class="bg-dark text-light">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Visualizar Cadastros</h1>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Data do Evento</th>
+                    <th scope="col">Horário</th>
+                    <th scope="col">Fotógrafo</th>
+                </tr>
+            </thead>
+            <tbody id="cadastroTableBody">
+                <!-- Os dados dos cadastros serão inseridos aqui via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+
+        // Exemplo de dados de cadastro (substitua pelo seu método de obtenção de dados)
+        const cadastros = [
+            {
+                nome: 'KALLEB VIEIRA DE ANDRADE',
+                email: 'kallebv543@gmail.com',
+                telefone: '65996266206',
+                dataevent: '2010-10-10',
+                horario: '10:10',
+                fotografo: 'fotografo2'
+            },
+            {
+                nome: 'JOÃO DA SILVA',
+                email: 'joao@example.com',
+                telefone: '65912345678',
+                dataevent: '2011-11-11',
+                horario: '11:11',
+                fotografo: 'fotografo1'
+            }
+        ];
+
+        // Função para exibir os cadastros na tabela
+        function displayCadastros() {
+            const tableBody = document.getElementById('cadastroTableBody');
+            tableBody.innerHTML = ''; // Limpa a tabela
+
+            cadastros.forEach(cadastro => {
+                const row = `
+            <tr>
+                <td>${cadastro.nome}</td>
+                <td>${cadastro.email}</td>
+                <td>${cadastro.telefone}</td>
+                <td>${cadastro.dataevent}</td>
+                <td>${cadastro.horario}</td>
+                <td>${cadastro.fotografo}</td>
+            </tr>
+        `;
+                tableBody.innerHTML += row; // Adiciona a linha à tabela
+            });
+        }
+
+        // Chama a função para exibir os cadastros ao carregar a página
+        window.onload = displayCadastros;
+
+    </script> <!-- Link para o JS -->
+</body>
+
+</html>

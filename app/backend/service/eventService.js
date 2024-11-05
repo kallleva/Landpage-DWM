@@ -1,42 +1,24 @@
-// backend/service/userService.js
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-const eventRepository = require('../repository/eventRepository');
+// Função para criar um novo agendamento
+async function createEvent(eventData) {
+    return await prisma.event.create({
+        data: {
+            eventname: eventData.eventname,
+            dataevent: new Date(eventData.dataevent),
+            localevent: eventData.localevent,
+        },
+    });
+}
 
-exports.createEvent = async (eventname, dataevent, localevent) => {
-  // Verificar se o username e password foram fornecidos
-  if (!eventname, !dataevent, !localevent) {
-    throw new Error('eventname and dataevent and localevent must be provided');
-  }
-  // Chamar o repositório para criar o usuário no banco de dados
-  const newEvent = await eventRepository.createEvent(eventname, dataevent, localevent);
+async function findEventByName(eventname) {
+    return await prisma.event.findUnique({
+        where: {
+            eventname: eventname,
+        },
+    });
+}
 
-  // Retornar o novo usuário criado
-  return newEvent;
-};
+module.exports = { createEvent, findEventByName };
 
-
-exports.ListAllEvent = async () => {
-    try {
-      // Chamar o repositório para buscar todos os eventos no banco de dados
-      const events = await eventRepository.findEventAll();
-      
-      // Retornar a lista de eventos encontrada
-      return events;
-    } catch (error) {
-      console.error('Error listing all events:', error);
-      throw new Error('Could not list events');
-    }
-};
-
-exports.ListBynameEvent = async (eventname) => {
-    try {
-      // Chamar o repositório para buscar todsomente os eventos  com mesmo nome no banco de dados
-      const event = await eventRepository.findByEventName(eventname);
-      
-      // Retornar a lista de eventos encontrada
-      return event;
-    } catch (error) {
-      console.error('Error listing all events:', error);
-      throw new Error('Could not list events');
-    }
-};
