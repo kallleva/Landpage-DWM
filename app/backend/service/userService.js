@@ -1,20 +1,19 @@
 // backend/service/userService.js
 
 const userRepository = require('../repository/userRepository');
+const { hashPassword } = require('../utils/passwordUtils'); // Importa do módulo
 const bcrypt = require('bcrypt');
 
 exports.createUser = async (username, password) => {
-  // Verificar se o username e password foram fornecidos
   if (!username || !password) {
     throw new Error('Username and password must be provided');
   }
 
-  // Hash a senha antes de salvar no banco de dados
-  const hashedPassword = await bcrypt.hash(password, 10);
+  // Hash da senha com bcrypt antes de salvar no banco de dados
+  const passwordHash = await hashPassword(password);
 
   // Chamar o repositório para criar o usuário no banco de dados
-  const newUser = await userRepository.createUser(username, hashedPassword);
+  const newUser = await userRepository.createUser(username, passwordHash);
 
-  // Retornar o novo usuário criado
   return newUser;
 };

@@ -1,19 +1,16 @@
-// backend/repository/userRepository.js
-
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const { hashPassword } = require('../utils/passwordUtils');
+const { hashPassword } = require('../utils/passwordUtils'); // Importa do módulo
 
 exports.findByUsername = async (username) => {
   try {
-    return await prisma.user.findUnique({
+    return await prisma.user.findFirst({
       where: {
         username: username,
       },
       select: {
         username: true,
-        salt: true,
-        passwordHash: true,
+        password: true,
       }
     });
   } catch (error) {
@@ -22,15 +19,16 @@ exports.findByUsername = async (username) => {
   }
 };
 
-
+// Criação de usuário usando hash com salt fixo e normalização
 exports.createUser = async (username, password) => {
   try {
-    const { salt, hash } = hashPassword(password); // Gera o salt e o hash
+    const passwordHash = hashPassword(password);
+    console.log('Hash gerado para salvar no banco:', passwordHash); // Log do hash gerado
+    
     return await prisma.user.create({
       data: {
         username: username,
-        salt: salt,
-        passwordHash: hash,
+        password: passwordHash,
       },
     });
   } catch (error) {
@@ -38,4 +36,3 @@ exports.createUser = async (username, password) => {
     throw new Error('Could not create user');
   }
 };
-

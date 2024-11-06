@@ -9,31 +9,25 @@
         body {
             background-color: #121212;
         }
-
         .card {
             background-color: #1e1e1e;
             border: none;
         }
-
         .card-title {
             color: #ffffff;
         }
-
         .form-control {
             background-color: #2a2a2a;
             color: #ffffff;
             border: 1px solid #444;
         }
-
         .form-control::placeholder {
             color: #bbb;
         }
-
         .btn-primary {
             background-color: #007bff;
             border: none;
         }
-
         .btn-primary:hover {
             background-color: #0056b3;
         }
@@ -82,7 +76,7 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
+    
             fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -96,11 +90,19 @@
             .then(response => response.json())
             .then(data => {
                 if (data.token) {
-                    // Login bem-sucedido
-                    document.getElementById('modalBody').textContent = 'Login realizado com sucesso!';
-                    $('#sucessoModal').modal('show');
+                    // Armazena o token no localStorage
+                    localStorage.setItem('token', data.token);
+                    
+                    // // Exibe o modal de sucesso
+                    // document.getElementById('modalBody').textContent = 'Login realizado com sucesso!';
+                    // $('#sucessoModal').modal('show');
+
+                    // Redireciona após 2 segundos
+                    setTimeout(() => {
+                        window.location.href = '/listCadastro.html';
+                    }, 2000);
                 } else {
-                    // Credenciais inválidas
+                    // Exibe mensagem de erro
                     document.getElementById('modalBody').textContent = data.message || 'Erro ao fazer login. Verifique suas credenciais.';
                     $('#sucessoModal').modal('show');
                 }

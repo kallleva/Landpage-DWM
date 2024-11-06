@@ -12,8 +12,7 @@ datasource db {
 model User {
   id           Int      @id @default(autoincrement())
   username     String   @unique
-  salt         String   // Campo para armazenar o salt gerado para a senha
-  passwordHash String   // Campo para armazenar o hash da senha
+  password     String   // Campo para armazenar o hash da senha
   posts        Post[]   // Relacionamento inverso: um usuário pode ter muitos posts
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

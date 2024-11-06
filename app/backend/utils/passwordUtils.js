@@ -1,18 +1,34 @@
-// backend/utils/passwordUtils.js
-
 const crypto = require('crypto');
 
-// Função para gerar um hash com salt
+// Salt fixo (não recomendado para produção)
+const FIXED_SALT = 'saltoFixoParaTodosUsuarios123';
+
+// Função para gerar hash MD5 com salt fixo e normalização
 function hashPassword(password) {
-  const salt = crypto.randomBytes(16).toString('hex'); // Gera um salt aleatório
-  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-  return { salt, hash };
+  // Normaliza a senha antes de gerar o hash
+  password = password.trim().toLowerCase();
+  
+  const hash = crypto.createHash('md5')
+    .update(password + FIXED_SALT)
+    .digest('hex');
+
+  return hash
 }
 
-// Função para verificar a senha fornecida com o hash armazenado
-function verifyPassword(password, salt, hash) {
-  const hashToVerify = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-  return hash === hashToVerify;
-}
+// Função para verificar a senha com salt fixo e normalização
+const verifyPassword = (password, passwordHash) => {
+  // Normaliza a senha antes de gerar o hash
+  password = password.trim().toLowerCase();
+  
+  const hash = crypto.createHash('md5')
+    .update(password + FIXED_SALT)
+    .digest('hex');
+
+  console.log('Hash gerado para comparação:', hash);
+  console.log('Hash esperado:', passwordHash);
+
+  return hash === passwordHash;
+};
+
 
 module.exports = { hashPassword, verifyPassword };
