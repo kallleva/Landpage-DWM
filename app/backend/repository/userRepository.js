@@ -2,6 +2,7 @@
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { hashPassword } = require('../utils/passwordUtils');
 
 exports.findByUsername = async (username) => {
   try {
@@ -9,6 +10,11 @@ exports.findByUsername = async (username) => {
       where: {
         username: username,
       },
+      select: {
+        username: true,
+        salt: true,
+        passwordHash: true,
+      }
     });
   } catch (error) {
     console.error('Error finding user by username:', error);
@@ -16,12 +22,15 @@ exports.findByUsername = async (username) => {
   }
 };
 
+
 exports.createUser = async (username, password) => {
   try {
+    const { salt, hash } = hashPassword(password); // Gera o salt e o hash
     return await prisma.user.create({
       data: {
         username: username,
-        password: password,
+        salt: salt,
+        passwordHash: hash,
       },
     });
   } catch (error) {
@@ -29,3 +38,4 @@ exports.createUser = async (username, password) => {
     throw new Error('Could not create user');
   }
 };
+

@@ -9,7 +9,6 @@ const portfolioRoutes = require('./portfolio');
 const eventRouter = require('./eventRouter');
 const orcamentoRouter = require('./orcamentoRouter');
 
-
 // Defino a rota auth para login
 router.use('/auth', authRoutes);
 
@@ -19,9 +18,6 @@ router.use(express.urlencoded({ extended: true }));
 // Rota de Agendamento
 router.use('/orcamento', orcamentoRouter);
 router.use('/event', eventRouter);
-
-
-// // Defino a rota portfolio para coisas envolvidas ao portfólio
-// router.use('/port', portfolioRoutes);
+router.use('/user', userRoutes);
 
 module.exports = router;

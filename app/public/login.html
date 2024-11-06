@@ -5,41 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="styles.css"> Link para o CSS -->
-     <Style>
+    <style>
         body {
-            background-color: #121212; /* Cor de fundo escura */
+            background-color: #121212;
         }
 
         .card {
-            background-color: #1e1e1e; /* Cor do cartão */
-            border: none; /* Remove a borda do cartão */
+            background-color: #1e1e1e;
+            border: none;
         }
 
         .card-title {
-            color: #ffffff; /* Cor do título */
+            color: #ffffff;
         }
 
         .form-control {
-            background-color: #2a2a2a; /* Cor de fundo dos campos */
-            color: #ffffff; /* Cor do texto nos campos */
-            border: 1px solid #444; /* Cor da borda dos campos */
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #444;
         }
 
         .form-control::placeholder {
-            color: #bbb; /* Cor do texto placeholder */
+            color: #bbb;
         }
 
         .btn-primary {
-            background-color: #007bff; /* Cor do botão */
-            border: none; /* Remove a borda do botão */
+            background-color: #007bff;
+            border: none;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3; /* Cor do botão ao passar o mouse */
+            background-color: #0056b3;
         }
-
-     </Style>
+    </style>
 </head>
 <body class="bg-dark text-light">
     <div class="container d-flex justify-content-center align-items-center vh-100">
@@ -61,7 +59,61 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Modal de Mensagem -->
+    <div class="modal fade" id="sucessoModal" tabindex="-1" aria-labelledby="sucessoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sucessoModalLabel">Mensagem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody" style="color: #1c1c1c;">
+                    <!-- Mensagem do modal será atualizada dinamicamente -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    // Login bem-sucedido
+                    document.getElementById('modalBody').textContent = 'Login realizado com sucesso!';
+                    $('#sucessoModal').modal('show');
+                } else {
+                    // Credenciais inválidas
+                    document.getElementById('modalBody').textContent = data.message || 'Erro ao fazer login. Verifique suas credenciais.';
+                    $('#sucessoModal').modal('show');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                document.getElementById('modalBody').textContent = 'Erro ao fazer login. Tente novamente mais tarde.';
+                $('#sucessoModal').modal('show');
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
